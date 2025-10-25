@@ -40,8 +40,6 @@ The interface and documentation are available in:
 - English
 - فارسی (Persian)
 - 中文 (Simplified Chinese)
-  
-- Persian
 
 ---
 

@@ -1,4 +1,5 @@
 # 🎨 Dicode ColorPicker
+<img width="1441" height="1104" alt="image" src="https://github.com/user-attachments/assets/bfe3ef8a-fd3f-4423-9ee8-f4b2728275f8" />
 
 A modern, responsive, and accessibility-aware color selection tool for designers, developers, and content creators.  
 Supports HEX, RGB, HSL, CMYK formats, contrast analysis (WCAG), and harmonious palette suggestions.  

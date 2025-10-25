@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <!-- Primary SEO -->
+    <title>ColorPickerDicode — انتخاب رنگ، ساخت پالت و کپی کد رنگ</title>
+    <meta name="description" content="ColorPickerDicode یک کالر پیکر سریع و مینیمال برای انتخاب رنگ، ساخت پالت، استخراج رنگ از تصویر و کپی کد رنگ (HEX, RGB, HSL). مناسب توسعه‌دهندگان و طراحان رابط کاربری.">
+    <meta name="keywords" content="کالر پیکر, انتخاب رنگ, پالت رنگ, کپی کد رنگ, HEX, RGB, HSL, گرادیانت, استخراج رنگ از تصویر, ابزار طراحان, ابزار توسعه‌دهندگان, ColorPickerDicode">
+    <meta name="author" content="ColorPickerDicode">
+    <link rel="canonical" href="https:/dicode.ir/tools/ColorPicker/">
+
+    <!-- Open Graph (Facebook, LinkedIn) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ColorPickerDicode — کالر پیکر مینیمال برای انتخاب و کپی رنگ">
+    <meta property="og:description" content="انتخاب رنگ دقیق، ساخت پالت، گرادیانت، و کپی کد رنگ در فرمت‌های HEX, RGB, HSL. تجربه سریع، مینیمال و فارسی.">
+    <meta property="og:url" content="https:/dicode.ir/tools/ColorPicker/">
+    <meta property="og:image" content="https://dicode.ir/icons/fav.png">
+    <meta property="og:site_name" content="ColorPickerDicode">
+    <meta property="og:locale" content="fa_IR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ColorPickerDicode — کالر پیکر برای انتخاب و کپی رنگ">
+    <meta name="twitter:description" content="ابزار حرفه‌ای انتخاب رنگ با پالت، گرادیانت، و استخراج رنگ از تصویر. مناسب UI/UX و توسعه وب.">
+    <meta name="twitter:image" content="https://dicode.ir/icons/fav.png">
+
+    <!-- PWA/Display (optional but helpful) -->
+    <meta name="application-name" content="ColorPickerDicode">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Robots -->
+    <meta name="robots" content="index,follow">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ColorPickerDicode",
+    "url": "https:/dicode.ir/tools/ColorPicker/",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
+    "description": "کالر پیکر مینیمال برای انتخاب رنگ، ساخت پالت، گرادیانت و استخراج رنگ از تصویر با کپی سریع کدهای HEX, RGB, HSL.",
+    "inLanguage": "fa-IR",
+    "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+    },
+    "image": "https://dicode.ir/icons/fav.png"
+    }
+    </script>
+  <!-- Vazirmatn -->
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <!-- FavIcon-->
+  <link rel="icon" href="https://dicode.ir/icons/fav.png" type="image/png">
+  <!-- Prism.js (correct order: core, languages, plugins) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-markup.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-jsx.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-css.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-kotlin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.css">
+
+  <meta name="theme-color" content="#ffffff" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Vazirmatn','system-ui','Tahoma','Arial'] },
+          colors: {
+            dicodeBlue: { 400:'#60a5fa', 500:'#3b82f6', 600:'#2563eb' }
+          },
+          transitionTimingFunction: { fluid: 'cubic-bezier(.22,.61,.36,1)' },
+          keyframes: {
+            fadeUp: { '0%':{opacity:0,transform:'translateY(8px)'}, '100%':{opacity:1,transform:'translateY(0)'} },
+            pulseLine: { '0%,100%':{ boxShadow:'0 0 0 1px rgba(59,130,246,.24)' }, '50%':{ boxShadow:'0 0 0 2px rgba(59,130,246,.4)' } },
+            wave: { '0%':{transform:'translateY(0)'}, '50%':{transform:'translateY(-2px)'}, '100%':{transform:'translateY(0)'} },
+            modalIn: { '0%':{opacity:.0,transform:'translateY(8px) scale(.98)'}, '100%':{opacity:1,transform:'translateY(0) scale(1)'} },
+            modalOut:{ '0%':{opacity:1,transform:'translateY(0) scale(1)'}, '100%':{opacity:.0,transform:'translateY(8px) scale(.98)'} }
+          },
+          animation: {
+            fadeUp:'fadeUp .36s fluid both',
+            pulseLine:'pulseLine 2s infinite',
+            wave:'wave 2.2s ease-in-out infinite',
+            modalIn:'modalIn .22s fluid both',
+            modalOut:'modalOut .2s fluid both'
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    :root{
+      --card-border-light: rgba(148,163,184,.18);
+      --card-bg-light: rgba(255,255,255,.65);
+      --card-border-dark: rgba(255,255,255,.06);
+      --card-bg-dark: rgba(15,15,15,.96);
+    }
+
+    /* Linear look */
+    .linear-card { border: 1px solid var(--card-border-light); backdrop-filter: saturate(1.12) blur(6px); background-clip: padding-box; }
+    .linear-input { border: 1px solid rgba(148,163,184,.32); background: transparent; }
+    .linear-button { border: 1px solid rgba(59,130,246,.22); background: linear-gradient(180deg, rgba(59,130,246,.06), rgba(59,130,246,.02)); color: inherit; }
+    .linear-icon { border: 1px solid rgba(148,163,184,.28); background: linear-gradient(180deg, rgba(148,163,184,.06), rgba(148,163,184,.02)); }
+
+    /* Dark theme base */
+    .dark body { background: #0F0F0F; color: #F8FAFC; }
+    .dark .linear-card { border: 1px solid rgba(255,255,255,.06); background: linear-gradient(180deg, rgba(15,15,15,.96), rgba(15,15,15,.92)); }
+    .dark .linear-input { border: 1px solid rgba(255,255,255,.08); color: #F8FAFC; background: rgba(20,20,20,.7); }
+    .dark .linear-icon { border: 1px solid rgba(255,255,255,.06); background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)); }
+    .dark .linear-button { border: 1px solid rgba(255,255,255,.06); background: linear-gradient(180deg, rgba(59,130,246,.08), rgba(59,130,246,.03)); color: #E6F0FF; }
+
+    /* Color input swatch — dark fix */
+    input[type="color"]{
+      -webkit-appearance: none;
+      appearance: none;
+      background: #f8fafc;
+      border-radius: 8px;
+      overflow: hidden;
+      padding: 0;
+    }
+    input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+    input[type="color"]::-webkit-color-swatch { border: none; }
+    .dark input[type="color"]{ background: #151515; border: 1px solid rgba(255,255,255,.08); }
+
+    .focus-line:focus { outline: none; box-shadow: 0 0 0 3px rgba(59,130,246,.18); border-color: rgba(59,130,246,.8); }
+
+    body{ font-size:15px; }
+    .ui-sm{ font-size:13px; } .ui-base{ font-size:15px; } .ui-lg{ font-size:17px; }
+
+    .icon-btn{ display:inline-flex; align-items:center; gap:8px; padding:.5rem .7rem; white-space:nowrap; }
+    .icon-inline{ display:inline-flex; align-items:center; gap:.5rem; }
+    .grad-tile{ cursor:pointer; }
+
+    .img-preview{ width:100%; height:140px; object-fit:cover; border-radius:8px; border:1px solid rgba(148,163,184,.08); display:block; }
+    .img-preview.hidden{ display:none; }
+
+    /* picker overlay (no backdrop behind zoom) */
+    .picker-overlay{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:60; pointer-events:none; }
+    .picker-overlay.open{ display:flex; pointer-events:auto; }
+    .picker-overlay .backdrop{ display:none; }
+
+    .picker-panel{
+      position: absolute;
+      inset: auto;
+      max-width: 94vw; max-height: 86vh;
+      background: rgba(255,255,255,.98);
+      border: 1px solid rgba(148,163,184,.22);
+      border-radius: 14px;
+      box-shadow: 0 18px 60px rgba(2,6,23,.25);
+      overflow: hidden;
+      z-index: 1;
+      transition: transform .22s cubic-bezier(.22,.61,.36,1), opacity .22s ease;
+    }
+    .dark .picker-panel{
+      background: rgba(16,16,16,.98);
+      border: 1px solid rgba(255,255,255,.06);
+      box-shadow: 0 18px 60px rgba(0,0,0,.65);
+    }
+    .picker-header{
+      cursor: move;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:.6rem; padding:.6rem .8rem;
+      border-bottom: 1px solid rgba(148,163,184,.18);
+      background: linear-gradient(180deg, rgba(148,163,184,.06), rgba(148,163,184,.02));
+    }
+    .dark .picker-header{ border-bottom: 1px solid rgba(255,255,255,.06); background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015)); }
+
+    .picker-body{ padding:.8rem; }
+    .picker-toolbar{ display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; margin-bottom:.6rem; }
+    .picker-canvas{ width:auto; height:auto; border-radius:8px; display:block; max-width: 92vw; max-height: 70vh; background:transparent; cursor: crosshair; }
+
+    .code-modal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:70; }
+    .code-modal.open{ display:flex; }
+    .code-panel{
+      background: rgba(255,255,255,.95);
+      border: 1px solid rgba(148,163,184,.22);
+      border-radius: 14px;
+      width: min(880px, 94vw);
+      max-height: 86vh;
+      overflow: hidden;
+      z-index: 1;
+      transition: transform .22s cubic-bezier(.22,.61,.36,1), opacity .22s ease;
+    }
+    .code-panel.animate-modalOut{ transform: translateY(8px) scale(.98); opacity:0; }
+    .code-panel.animate-modalIn{ transform: translateY(0) scale(1); opacity:1; }
+
+    .dark .code-panel{
+      background: rgba(16,16,16,.96);
+      border: 1px solid rgba(255,255,255,.06);
+    }
+    .code-header{ display:flex; align-items:center; justify-content:space-between; padding:.7rem .9rem; border-bottom: 1px solid rgba(148,163,184,.18); }
+    .dark .code-header{ border-bottom: 1px solid rgba(255,255,255,.08); }
+    .tabs{ display:flex; gap:.4rem; flex-wrap:wrap; }
+    .tab-btn{
+      padding:.4rem .7rem; border-radius:8px; font-size:13px;
+      border:1px solid rgba(148,163,184,.26);
+      background: linear-gradient(180deg, rgba(148,163,184,.08), rgba(148,163,184,.02));
+    }
+    .tab-btn.active{ border-color: rgba(59,130,246,.5); box-shadow: 0 0 0 2px rgba(59,130,246,.2) inset; }
+    .dark .tab-btn{ border-color: rgba(255,255,255,.08); background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015)); }
+    .code-body{ padding:.9rem; }
+    .code-pane{ display:none; }
+    .code-pane.active{ display:block; }
+
+    /* Rounded code boxes with line numbers */
+    pre[class*="language-"], code[class*="language-"] {
+      border-radius: 12px; overflow: hidden; border: 0; box-shadow: 0 10px 30px rgba(2,6,23,.06);
+      margin: 0;
+      direction:ltr; text-align:left;
+    }
+    .dark pre[class*="language-"] { background: #0F0F0F !important; box-shadow: 0 18px 60px rgba(0,0,0,.6); }
+    pre[class*="language-"] { padding: 1rem; border-radius:12px; }
+
+    .code-actions{
+      display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom:.6rem;
+      align-items:center; justify-content:center;
+    }
+    .code-actions .cdn {
+      margin: 0 .5rem;
+      font-size: 12px;
+      color: rgba(100,116,139,1);
+      align-self:center;
+      white-space:nowrap;
+    }
+    .dark .code-actions .cdn { color: rgba(148,163,184,.7); }
+
+    .code-action{
+      display:inline-flex; align-items:center; gap:.4rem; padding:.35rem .6rem; border-radius:8px; border: 1px solid rgba(148,163,184,.26);
+      background: transparent;
+      position: relative;
+      overflow: hidden;
+      transition: transform .12s ease;
+    }
+    .dark .code-action{ border-color: rgba(255,255,255,.08); }
+    .code-action .label { transition: opacity .12s ease; }
+    .code-action.success { background: linear-gradient(90deg, rgba(34,197,94,.12), rgba(34,197,94,.06)); border-color: rgba(34,197,94,.3); }
+
+    .format-modal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:75; }
+    .format-modal.open{ display:flex; }
+    .format-panel{
+      background: rgba(255,255,255,.95);
+      border: 1px solid rgba(148,163,184,.22);
+      border-radius: 12px;
+      width: min(420px, 92vw);
+      overflow: hidden;
+      z-index: 1;
+      transition: transform .18s ease, opacity .18s ease;
+    }
+    .format-panel.animate-modalOut{ transform: translateY(8px) scale(.98); opacity:0; }
+    .format-panel.animate-modalIn{ transform: translateY(0) scale(1); opacity:1; }
+
+    .dark .format-panel{
+      background: rgba(16,16,16,.96);
+      border: 1px solid rgba(255,255,255,.06);
+    }
+
+    /* Backdrop for non-zoom modals */
+    .backdrop {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.45);
+      backdrop-filter: blur(6px);
+      z-index: 0;
+    }
+
+    /* Custom file input */
+    .file-wrap { position: relative; display: inline-block; }
+    .file-input { position:absolute; inset:0; opacity:0; width:100%; height:100%; cursor:pointer; }
+    .file-btn {
+      display:inline-flex; align-items:center; gap:.5rem; justify-content:center;
+      padding:.5rem .8rem; border-radius:8px; border:1px solid rgba(59,130,246,.25);
+      background: #eaf4ff; color:#1e3a8a;
+    }
+    .dark .file-btn { background:#171717; color:#ffffff; border-color: rgba(255,255,255,.08); }
+    .file-btn:disabled{ opacity:.6; cursor:not-allowed; }
+
+    .hand-active { outline: 2px dashed rgba(59,130,246,.28); box-shadow: 0 8px 30px rgba(59,130,246,.06) inset; }
+
+    ::-webkit-scrollbar{ width:8px; height:8px; }
+    ::-webkit-scrollbar-thumb{ background:rgba(148,163,184,.22); border-radius:8px; }
+
+    @media (max-width:880px){ .img-preview{ height:120px;} .ui-lg{ font-size:16px; } }
+    @media (max-width:520px){
+      .img-preview{ height:100px;}
+      .grid-cols-mobile{ grid-template-columns: 1fr !important; }
+      .icon-btn span.hidden-sm { display:none !important; }
+      .picker-canvas{ max-height: 60vh; }
+    }
+  </style>
+</head>
+<body class="font-sans bg-white text-slate-800 transition-colors duration-500 ease-fluid">
+  <!-- Header -->
+  <header class="sticky top-0 z-40 backdrop-blur bg-white/85 dark:bg-[#0F0F0F]/95 linear-card border-b border-slate-200/40 dark:border-[rgba(255,255,255,.04)]">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="linear-icon rounded-md p-2 animate-pulseLine">
+          <svg data-lucide="palette" width="20" height="20"></svg>
+        </div>
+        <div>
+          <h1 data-i18n="title" class="text-lg font-semibold ui-lg">انتخاب رنگ — Dicode</h1>
+          <div data-i18n="subtitle" class="text-xs text-slate-500 dark:text-slate-400 ui-sm">ابزار رنگ حرفه‌ای — کپی سریع، پالت‌ها، انتخاب از عکس</div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button id="themeToggle" class="linear-button focus-line rounded-md p-2 inline-flex items-center justify-center gap-2" title="تغییر تم" aria-label="تغییر تم">
+          <svg data-lucide="sun" class="light-icon" width="18" height="18"></svg>
+          <svg data-lucide="moon" class="dark-icon hidden" width="18" height="18"></svg>
+        </button>
+
+        <!-- Language toggle -->
+        <div id="langWrap" class="relative">
+          <button id="langToggle" class="linear-icon focus-line rounded-md p-2 icon-inline inline-flex items-center gap-2" title="تغییر زبان" aria-haspopup="true">
+            <svg data-lucide="globe" width="18" height="18"></svg>
+            <span id="langLabel" class="ui-sm hidden sm:inline" data-i18n="lang">زبان</span>
+          </button>
+          <div id="langMenu" class="absolute left-0 mt-2 w-44 linear-card rounded-md p-2 shadow-xl hidden">
+            <button class="w-full text-right px-3 py-2 rounded-md hover:bg-slate-100 dark:hover:bg-white/5 inline-flex items-center gap-2 justify-between" data-lang="fa"><span>پارسی</span><span class="font-mono ui-sm">FA</span></button>
+            <button class="w-full text-right px-3 py-2 rounded-md hover:bg-slate-100 dark:hover:bg-white/5 inline-flex items-center gap-2 justify-between" data-lang="en"><span>English</span><span class="font-mono ui-sm">EN</span></button>
+            <button class="w-full text-right px-3 py-2 rounded-md hover:bg-slate-100 dark:hover:bg-white/5 inline-flex items-center gap-2 justify-between" data-lang="zh"><span>中文</span><span class="font-mono ui-sm">ZH</span></button>
+          </div>
+        </div>
+
+        <button id="infoBtn" class="linear-icon focus-line rounded-md icon-btn inline-flex items-center gap-2 justify-center" aria-label="راهنما" title="راهنما">
+          <svg data-lucide="info" width="18" height="18"></svg>
+          <span class="ui-sm hidden-sm" data-i18n="help">راهنما</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-6">
+    <!-- Controls -->
+    <section class="linear-card rounded-xl p-4 sm:p-5 bg-white/50 dark:bg-[#0F0F0F]/95 animate-fadeUp">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Left -->
+        <div class="lg:col-span-1 space-y-4">
+          <div class="space-y-2">
+            <label class="block text-sm font-medium ui-sm" data-i18n="hexLabel">کد رنگ (HEX) یا انتخاب‌گر</label>
+            <div class="flex items-center gap-2">
+              <input id="hexInput" type="text" placeholder="#4F46E5" class="linear-input focus-line ltr rounded-md px-3 py-2 w-full ui-base" />
+              <input id="colorInput" type="color" class="w-12 h-12 rounded-md border border-slate-300 dark:border-[rgba(255,255,255,.06)] cursor-pointer" title="انتخاب رنگ" />
+            </div>
+            <p id="errorMsg" class="text-xs text-red-600 hidden" data-i18n="invalidHex">کد نامعتبر. مثال: #4F46E5</p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <button id="copyHex" class="linear-button focus-line rounded-md icon-btn ui-base inline-flex items-center gap-2 justify-center" title="کپی HEX">
+              <svg data-lucide="copy" width="16" height="16"></svg><span>HEX</span>
+            </button>
+            <button id="copyRgb" class="linear-button focus-line rounded-md icon-btn ui-base inline-flex items-center gap-2 justify-center" title="کپی RGB">
+              <svg data-lucide="copy" width="16" height="16"></svg><span>RGB</span>
+            </button>
+            <button id="copyHsl" class="linear-button focus-line rounded-md icon-btn ui-base inline-flex items-center gap-2 justify-center" title="کپی HSL">
+              <svg data-lucide="copy" width="16" height="16"></svg><span>HSL</span>
+            </button>
+            <button id="randomBtn" class="linear-button focus-line rounded-md icon-btn ui-base inline-flex items-center gap-2 justify-center" title="رنگ تصادفی">
+              <svg data-lucide="shuffle" width="16" height="16"></svg><span data-i18n="random">تصادفی</span>
+            </button>
+          </div>
+
+          <!-- Auto contrast: AA/AAA check options -->
+          <div class="space-y-2">
+            <label class="block text-sm font-medium ui-sm" data-i18n="autoContrast">تضاد خودکار (WCAG)</label>
+            <div class="flex items-center gap-2 flex-wrap">
+              <label class="inline-flex items-center gap-2 linear-icon rounded-md px-3 py-2 ui-sm cursor-pointer select-none">
+                <input id="aaCheck" type="checkbox" class="accent-blue-500" checked>
+                <span data-i18n="aa">AA (حداقل 4.5:1)</span>
+              </label>
+              <label class="inline-flex items-center gap-2 linear-icon rounded-md px-3 py-2 ui-sm cursor-pointer select-none">
+                <input id="aaaCheck" type="checkbox" class="accent-blue-600">
+                <span data-i18n="aaa">AAA (حداقل 7:1)</span>
+              </label>
+              <button id="autoContrastBtn" class="linear-button focus-line rounded-md px-3 py-2 ui-base icon-inline inline-flex items-center gap-2" title="تنظیم تضاد">
+                <svg data-lucide="sliders" width="16" height="16"></svg><span data-i18n="adjust">تنظیم</span>
+              </button>
+            </div>
+            <div class="text-xs text-slate-600 dark:text-slate-400 ui-sm" data-i18n="contrastTip">با انتخاب AA یا AAA و زدن «تنظیم»، خوانایی متن نسبت به پس‌زمینه تضمین می‌شود.</div>
+          </div>
+
+          <!-- Image picker with custom choose file -->
+          <div class="space-y-2">
+            <label class="block text-sm font-medium ui-sm" data-i18n="pickFromImage">انتخاب رنگ از عکس</label>
+            <div class="file-wrap">
+              <button id="chooseFileBtn" class="file-btn icon-inline inline-flex items-center gap-2 justify-center">
+                <svg data-lucide="image" width="16" height="16"></svg>
+                <span data-i18n="chooseFile">انتخاب عکس</span>
+              </button>
+              <input id="imageInput" type="file" accept="image/*" class="file-input" aria-label="انتخاب عکس" />
+            </div>
+            <div id="imageArea" class="rounded-md overflow-hidden border border-slate-200 dark:border-[rgba(255,255,255,.06)] p-2 relative">
+              <img id="imgPreview" class="img-preview hidden" alt="پیش‌نمایش عکس" />
+              <div id="pickHint" class="text-xs text-slate-500 dark:text-slate-400 ui-sm" data-i18n="pickHint">عکس آپلود کنید، روی تصویر کلیک کنید تا رنگ انتخاب شود. برای دقت بیشتر «بزرگنمایی» را باز کنید.</div>
+              <div class="mt-2 flex gap-2 flex-wrap">
+                <button id="openZoom" class="linear-button focus-line rounded-md px-3 py-1.5 ui-sm icon-inline inline-flex items-center gap-2" title="نمایش بزرگتر عکس" disabled>
+                  <svg data-lucide="maximize-2" width="14" height="14"></svg><span data-i18n="zoom">بزرگنمایی</span>
+                </button>
+                <button id="handTool" class="linear-button focus-line rounded-md px-3 py-1.5 ui-sm icon-inline inline-flex items-center gap-2" title="ابزار دست" disabled aria-pressed="false" >
+                  <svg data-lucide="hand" width="14" height="14"></svg><span class="ui-sm">دست</span>
+                </button>
+                <button id="clearImage" class="linear-icon focus-line rounded-md px-3 py-1.5 ui-sm icon-inline inline-flex items-center gap-2" title="حذف عکس" disabled>
+                  <svg data-lucide="x" width="14" height="14"></svg><span data-i18n="remove">حذف</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Center + Right -->
+        <div class="lg:col-span-2 grid sm:grid-cols-2 gap-5">
+          <div class="space-y-3">
+            <div class="rounded-lg overflow-hidden border border-slate-200 dark:border-[rgba(255,255,255,.06)] linear-card">
+              <div id="previewBlock" class="h-36 flex items-center justify-center transition-colors duration-500 ease-fluid">
+                <span id="previewText" class="text-base sm:text-xl font-medium ui-lg" data-i18n="previewText">پیش‌نمایش متن</span>
+              </div>
+              <div class="p-3 text-sm bg-white/70 dark:bg-[#0F0F0F]/90">
+                <div class="flex flex-wrap gap-x-6 gap-y-2">
+                  <div><span class="text-slate-500 dark:text-slate-400 ui-sm">HEX:</span> <span id="hexOut" class="ltr font-mono ui-base"></span></div>
+                  <div><span class="text-slate-500 dark:text-slate-400 ui-sm">RGB:</span> <span id="rgbOut" class="ltr font-mono ui-base"></span></div>
+                  <div><span class="text-slate-500 dark:text-slate-400 ui-sm">HSL:</span> <span id="hslOut" class="ltr font-mono ui-base"></span></div>
+                  <div><span class="text-slate-500 dark:text-slate-400 ui-sm" data-i18n="contrastLabel">کنتراست:</span> <span id="contrastOut" class="ltr font-mono ui-base"></span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2">
+              <div class="text-center">
+                <div class="text-xs text-slate-500 dark:text-slate-400 mb-1 ui-sm" data-i18n="textColor">رنگ متن</div>
+                <div id="textSwatch" class="h-12 rounded-md border border-slate-200 dark:border-[rgba(255,255,255,.06)] cursor-pointer" title="کپی رنگ متن"></div>
+              </div>
+              <div class="text-center">
+                <div class="text-xs text-slate-500 dark:text-slate-400 mb-1 ui-sm" data-i18n="complement">رنگ مکمل</div>
+                <div id="compSwatch" class="h-12 rounded-md border border-slate-200 dark:border-[rgba(255,255,255,.06)] cursor-pointer" title="کپی رنگ مکمل"></div>
+              </div>
+              <div class="text-center">
+                <div class="text-xs text-slate-500 dark:text-slate-400 mb-1 ui-sm" data-i18n="analogous">رنگ‌های مشابه</div>
+                <div id="analogSwatch" class="h-12 rounded-md border border-slate-200 dark:border-[rgba(255,255,255,.06)] cursor-pointer" title="کپی رنگ‌های مشابه"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <!-- Shades & tints -->
+            <div class="rounded-lg border border-slate-200 dark:border-[rgba(255,255,255,.06)] linear-card">
+              <div class="p-3 flex items-center justify-between">
+                <span class="text-sm font-medium ui-base" data-i18n="shadesTints">سایه‌ها و تینت‌ها</span>
+                <div class="text-xs text-slate-500 dark:text-slate-400 ui-sm" data-i18n="clickToCopyFormat">کلیک برای کپی (انتخاب فرمت)</div>
+              </div>
+              <div id="shadesContainer" class="grid grid-cols-2 sm:grid-cols-3 gap-2 p-3"></div>
+            </div>
+
+            <!-- Harmonic & gradient -->
+            <div class="rounded-lg border border-slate-200 dark:border-[rgba(255,255,255,.06)] linear-card">
+              <div class="p-3 flex items-center justify-between">
+                <span class="text-sm font-medium ui-base" data-i18n="harmonicGradient">پالت هارمونیک و گرادیان</span>
+                <div class="text-xs text-slate-500 dark:text-slate-400 ui-sm" data-i18n="clickForCodes">کلیک برای کدها (React / Kotlin/Java / CSS / Tailwind)</div>
+              </div>
+              <div id="paletteContainer" class="grid grid-cols-2 sm:grid-cols-3 gap-2 p-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Help -->
+    <section class="linear-card rounded-xl p-4 sm:p-5 bg-white/50 dark:bg-[#0F0F0F]/95 mt-5 animate-fadeUp">
+      <h2 class="text-base font-medium mb-3 ui-lg" data-i18n="quickHelp">راهنما و نکات سریع</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm ui-sm">
+        <div class="space-y-2">
+          <div><strong data-i18n="autoContrastStrong">تضاد خودکار:</strong> <span data-i18n="autoContrastDesc">AA یا AAA را انتخاب کنید و «تنظیم» را بزنید تا خوانایی تضمین شود.</span></div>
+          <div><strong data-i18n="copyColorStrong">کپی رنگ:</strong> <span data-i18n="copyColorDesc">روی نمونه‌ها یا سایه‌ها کلیک کنید؛ پنجره انتخاب فرمت (HEX/RGB/HSL) باز می‌شود.</span></div>
+          <div><strong data-i18n="pickFromImageStrong">انتخاب از عکس:</strong> <span data-i18n="pickFromImageDesc">عکس آپلود کنید؛ روی تصویر کلیک کنید یا با بزرگنمایی پیکسل دقیق انتخاب کنید.</span></div>
+        </div>
+        <div class="space-y-2">
+          <div><strong data-i18n="darkThemeStrong">تم دارک:</strong> <span data-i18n="darkThemeDesc">پس‌زمینه تیره #0F0F0F؛ ورودی‌ها و پنجره‌ها با زمینه تیره اختصاصی.</span></div>
+          <div><strong data-i18n="responsiveStrong">ریسپانسیو:</strong> <span data-i18n="responsiveDesc">چیدمان برای موبایل ساده‌تر و دکمه‌ها با عرض کافی و آیکون‌های تراز.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="mt-8 text-xs text-slate-500 dark:text-slate-400 text-center ui-sm" data-i18n="footer">ساخته‌شده با دقت در تایپوگرافی فارسی — Dicode</footer>
+  </main>
+
+  <!-- Zoom / picker overlay (no backdrop) -->
+  <div id="pickerOverlay" class="picker-overlay" aria-hidden="true">
+    <div id="pickerPanel" class="picker-panel" style="top: 8vh; right: 3vw; opacity:0; transform:translateY(8px) scale(.98);">
+      <div id="pickerHeader" class="picker-header">
+        <div class="flex items-center gap-2">
+          <div class="linear-icon rounded-md p-1.5 inline-flex items-center justify-center"><svg data-lucide="zoom-in" width="16" height="16"></svg></div>
+          <span class="text-sm ui-base" data-i18n="zoomTitle">بزرگنمایی عکس — انتخاب پیکسل</span>
+        </div>
+        <div class="flex items-center gap-2 picker-toolbar">
+          <button id="zoomOutBtn" class="linear-icon rounded-md p-1.5 inline-flex items-center justify-center" title="کوچک‌نمایی"><svg data-lucide="zoom-out" width="16" height="16"></svg></button>
+          <button id="zoomInBtn" class="linear-icon rounded-md p-1.5 inline-flex items-center justify-center" title="بزرگ‌نمایی"><svg data-lucide="zoom-in" width="16" height="16"></svg></button>
+          <button id="resetZoomBtn" class="linear-icon rounded-md p-1.5 inline-flex items-center justify-center" title="ریست"><svg data-lucide="rotate-ccw" width="16" height="16"></svg></button>
+          <button id="handToggle" class="linear-icon rounded-md p-1.5 inline-flex items-center justify-center" title="ابزار جابجایی" aria-pressed="false"><svg data-lucide="hand" width="16" height="16"></svg></button>
+          <button id="closePicker" class="linear-icon rounded-md p-2 inline-flex items-center justify-center" title="بستن"><svg data-lucide="x" width="16" height="16"></svg></button>
+        </div>
+      </div>
+      <div class="picker-body">
+        <canvas id="pickerCanvas" class="picker-canvas rounded-md"></canvas>
+        <div id="pickerInfo" class="mt-2 text-xs bg-white/90 dark:bg-[#0F0F0F]/90 text-slate-800 dark:text-slate-100 px-2 py-1 rounded-md font-mono"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gradient/harmonic code modal -->
+  <div id="codeModal" class="code-modal" aria-hidden="true">
+    <div class="backdrop" id="codeBackdrop"></div>
+    <div id="codePanel" class="code-panel">
+      <div class="code-header">
+        <div class="flex items-center gap-2">
+          <div class="linear-icon rounded-md p-1.5 inline-flex items-center justify-center"><svg data-lucide="code-2" width="16" height="16"></svg></div>
+          <span id="codeTitle" class="text-sm ui-base">کد گرادیان / پالت</span>
+        </div>
+        <button id="codeClose" class="linear-icon rounded-md p-2 inline-flex items-center justify-center" title="بستن"><svg data-lucide="x" width="16" height="16"></svg></button>
+      </div>
+      <div class="code-body">
+        <div class="tabs mb-3">
+          <button class="tab-btn active inline-flex items-center gap-2" data-tab="react">React</button>
+          <button class="tab-btn inline-flex items-center gap-2" data-tab="kotlin">Kotlin/Java (Android)</button>
+          <button class="tab-btn inline-flex items-center gap-2" data-tab="css">CSS</button>
+          <button class="tab-btn inline-flex items-center gap-2" data-tab="tailwind">Tailwind</button>
+        </div>
+
+        <div id="pane-react" class="code-pane active">
+          <div class="code-actions">
+            <button class="code-action inline-flex items-center gap-2" data-copy="react">
+              <svg data-lucide="copy" width="16" height="16"></svg><span class="label" data-i18n="copy">کپی</span>
+            </button>
+            <button class="code-action inline-flex items-center gap-2" data-download="react">
+              <svg data-lucide="download" width="16" height="16"></svg><span class="label" data-i18n="download">دانلود</span>
+            </button>
+            <span class="cdn">CDN: react, react-dom</span>
+          </div>
+          <pre class="line-numbers"><code id="code-react" class="language-jsx"></code></pre>
+        </div>
+
+        <div id="pane-kotlin" class="code-pane">
+          <div class="code-actions">
+            <button class="code-action inline-flex items-center gap-2" data-copy="kotlin">
+              <svg data-lucide="copy" width="16" height="16"></svg><span class="label" data-i18n="copy">کپی</span>
+            </button>
+            <button class="code-action inline-flex items-center gap-2" data-download="kotlin">
+              <svg data-lucide="download" width="16" height="16"></svg><span class="label" data-i18n="download">دانلود</span>
+            </button>
+            <span class="cdn">Android SDK (android.graphics.*)</span>
+          </div>
+          <pre class="line-numbers"><code id="code-kotlin" class="language-kotlin"></code></pre>
+        </div>
+
+        <div id="pane-css" class="code-pane">
+          <div class="code-actions">
+            <button class="code-action inline-flex items-center gap-2" data-copy="css">
+              <svg data-lucide="copy" width="16" height="16"></svg><span class="label" data-i18n="copy">کپی</span>
+            </button>
+            <button class="code-action inline-flex items-center gap-2" data-download="css">
+              <svg data-lucide="download" width="16" height="16"></svg><span class="label" data-i18n="download">دانلود</span>
+            </button>
+            <span class="cdn">CDN: Prism CSS theme</span>
+          </div>
+          <pre class="line-numbers"><code id="code-css" class="language-css"></code></pre>
+        </div>
+
+        <div id="pane-tailwind" class="code-pane">
+          <div class="code-actions">
+            <button class="code-action inline-flex items-center gap-2" data-copy="tailwind">
+              <svg data-lucide="copy" width="16" height="16"></svg><span class="label" data-i18n="copy">کپی</span>
+            </button>
+            <button class="code-action inline-flex items-center gap-2" data-download="tailwind">
+              <svg data-lucide="download" width="16" height="16"></svg><span class="label" data-i18n="download">دانلود</span>
+            </button>
+            <span class="cdn">CDN: tailwindcss (play CDN)</span>
+          </div>
+          <pre class="line-numbers"><code id="code-tailwind" class="language-javascript"></code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Copy format modal -->
+  <div id="formatModal" class="format-modal" aria-hidden="true">
+    <div class="backdrop" id="formatBackdrop"></div>
+    <div id="formatPanel" class="format-panel" style="opacity:0; transform:translateY(8px) scale(.98);">
+      <div class="code-header">
+        <div class="flex items-center gap-2">
+          <div class="linear-icon rounded-md p-1.5 inline-flex items-center justify-center"><svg data-lucide="clipboard-copy" width="16" height="16"></svg></div>
+          <span class="text-sm ui-base" data-i18n="chooseCopyFormat">انتخاب فرمت کپی رنگ</span>
+        </div>
+        <button id="formatClose" class="linear-icon rounded-md p-2 inline-flex items-center justify-center" title="بستن"><svg data-lucide="x" width="16" height="16"></svg></button>
+      </div>
+      <div class="code-body">
+        <div class="grid grid-cols-3 gap-2">
+          <button class="linear-button rounded-md px-3 py-2 ui-base inline-flex items-center gap-2 justify-center" data-format="hex">HEX</button>
+          <button class="linear-button rounded-md px-3 py-2 ui-base inline-flex items-center gap-2 justify-center" data-format="rgb">RGB</button>
+          <button class="linear-button rounded-md px-3 py-2 ui-base inline-flex items-center gap-2 justify-center" data-format="hsl">HSL</button>
+        </div>
+        <div id="formatPreview" class="mt-3 text-xs text-slate-600 dark:text-slate-300 font-mono ltr"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Info Modal -->
+  <div id="infoModal" class="fixed inset-0 hidden items-center justify-center z-50">
+    <div class="backdrop"></div>
+    <div class="relative max-w-lg w-[92%] sm:w-[80%] linear-card rounded-xl bg-white/90 dark:bg-[#0F0F0F]/92 p-5 animate-fadeUp" style="z-index:1;">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-base sm:text-lg font-semibold ui-lg" data-i18n="helpTitle">راهنما</h3>
+        <button id="infoClose" class="linear-icon rounded-md p-1 inline-flex items-center justify-center" aria-label="بستن"><svg data-lucide="x" width="18" height="18"></svg></button>
+      </div>
+      <div class="text-sm ui-sm space-y-2 max-h-64 overflow-auto pr-2">
+        <p><strong data-i18n="whereClickStrong">کجا کلیک کنم؟</strong> <span data-i18n="whereClickDesc">روی هر کاشی کلیک کنید تا کد مربوطه باز شود. گرادیان‌ها پاپ‌آپ کد دارند.</span></p>
+        <p><strong data-i18n="autoContrastStrong">تضاد خودکار:</strong> <span data-i18n="autoContrastDesc">سطح AA یا AAA را تیک بزنید و «تنظیم» را بزنید تا خوانایی بهتر شود.</span></p>
+        <p><strong data-i18n="pickFromImageStrong">انتخاب از عکس:</strong> <span data-i18n="pickFromImageDesc">عکس آپلود کنید، روی تصویر کلیک کنید یا با «بزرگنمایی» تک پیکسل را انتخاب نمایید.</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-md linear-card bg-white/90 dark:bg-[#0F0F0F]/92 text-sm hidden z-50"></div>
+
+  <script>
+    // initialize lucide icons
+    document.addEventListener('DOMContentLoaded', () => { if (window.lucide) lucide.createIcons(); });
+
+    // i18n dictionary
+    const i18n = {
+      fa: {
+        title: 'انتخاب رنگ — Dicode',
+        subtitle: 'ابزار رنگ حرفه‌ای — کپی سریع، پالت‌ها، انتخاب از عکس',
+        lang: 'زبان',
+        help: 'راهنما',
+        hexLabel: 'کد رنگ (HEX) یا انتخاب‌گر',
+        invalidHex: 'کد نامعتبر. مثال: #4F46E5',
+        random: 'تصادفی',
+        autoContrast: 'تضاد خودکار (WCAG)',
+        aa: 'AA (حداقل 4.5:1)',
+        aaa: 'AAA (حداقل 7:1)',
+        adjust: 'تنظیم',
+        contrastTip: 'با انتخاب AA یا AAA و زدن «تنظیم»، خوانایی متن نسبت به پس‌زمینه تضمین می‌شود.',
+        pickFromImage: 'انتخاب رنگ از عکس',
+        chooseFile: 'انتخاب عکس',
+        pickHint: 'عکس آپلود کنید، روی تصویر کلیک کنید تا رنگ انتخاب شود. برای دقت بیشتر «بزرگنمایی» را باز کنید.',
+        zoom: 'بزرگنمایی',
+        remove: 'حذف',
+        previewText: 'پیش‌نمایش متن',
+        contrastLabel: 'کنتراست:',
+        textColor: 'رنگ متن',
+        complement: 'رنگ مکمل',
+        analogous: 'رنگ‌های مشابه',
+        shadesTints: 'سایه‌ها و تینت‌ها',
+        clickToCopyFormat: 'کلیک برای کپی (انتخاب فرمت)',
+        harmonicGradient: 'پالت هارمونیک و گرادیان',
+        clickForCodes: 'کلیک برای کدها (React / Kotlin/Java / CSS / Tailwind)',
+        quickHelp: 'راهنما و نکات سریع',
+        autoContrastStrong: 'تضاد خودکار:',
+        autoContrastDesc: 'AA یا AAA را انتخاب کنید و «تنظیم» را بزنید تا خوانایی تضمین شود.',
+        copyColorStrong: 'کپی رنگ:',
+        copyColorDesc: 'روی نمونه‌ها یا سایه‌ها کلیک کنید؛ پنجره انتخاب فرمت (HEX/RGB/HSL) باز می‌شود.',
+        pickFromImageStrong: 'انتخاب از عکس:',
+        pickFromImageDesc: 'عکس آپلود کنید؛ روی تصویر کلیک کنید یا با بزرگنمایی پیکسل دقیق انتخاب کنید.',
+        darkThemeStrong: 'تم دارک:',
+        darkThemeDesc: 'پس‌زمینه تیره #0F0F0F؛ ورودی‌ها و پنجره‌ها با زمینه تیره اختصاصی.',
+        responsiveStrong: 'ریسپانسیو:',
+        responsiveDesc: 'چیدمان برای موبایل ساده‌تر و دکمه‌ها با عرض کافی و آیکون‌های تراز.',
+        footer: 'ساخته‌شده با دقت در تایپوگرافی فارسی — Dicode',
+        zoomTitle: 'بزرگنمایی عکس — انتخاب پیکسل',
+        copy: 'کپی',
+        download: 'دانلود',
+        chooseCopyFormat: 'انتخاب فرمت کپی رنگ',
+        helpTitle: 'راهنما',
+        whereClickStrong: 'کجا کلیک کنم؟',
+        whereClickDesc: 'روی هر کاشی کلیک کنید تا کد مربوطه باز شود. گرادیان‌ها پاپ‌آپ کد دارند.',
+        gradient: 'گرادیان',
+        toastCopied: (v)=>'کپی شد: ' + v,
+        toastPicked: (hex)=>'پیکسل انتخاب شد: ' + hex,
+        toastContrast:(t)=>'تضاد تنظیم شد ('+t+')'
+      },
+      en: {
+        title: 'Color Picker — Dicode',
+        subtitle: 'Pro color tool — quick copy, palettes, pick from image',
+        lang: 'Language',
+        help: 'Help',
+        hexLabel: 'Color code (HEX) or picker',
+        invalidHex: 'Invalid code. Example: #4F46E5',
+        random: 'Random',
+        autoContrast: 'Auto contrast (WCAG)',
+        aa: 'AA (min 4.5:1)',
+        aaa: 'AAA (min 7:1)',
+        adjust: 'Adjust',
+        contrastTip: 'Pick AA or AAA and press Adjust to ensure readability.',
+        pickFromImage: 'Pick color from image',
+        chooseFile: 'Choose image',
+        pickHint: 'Upload an image, click to pick color. Use Zoom for precision.',
+        zoom: 'Zoom',
+        remove: 'Remove',
+        previewText: 'Text preview',
+        contrastLabel: 'Contrast:',
+        textColor: 'Text color',
+        complement: 'Complement',
+        analogous: 'Analogous',
+        shadesTints: 'Shades & tints',
+        clickToCopyFormat: 'Click to copy (choose format)',
+        harmonicGradient: 'Harmonic palette & gradients',
+        clickForCodes: 'Click for codes (React / Kotlin/Java / CSS / Tailwind)',
+        quickHelp: 'Quick help & tips',
+        autoContrastStrong: 'Auto contrast:',
+        autoContrastDesc: 'Select AA or AAA and press Adjust to ensure readability.',
+        copyColorStrong: 'Copy color:',
+        copyColorDesc: 'Click swatches or shades; choose HEX/RGB/HSL in popup.',
+        pickFromImageStrong: 'Pick from image:',
+        pickFromImageDesc: 'Upload, click the image or use Zoom to pick exact pixel.',
+        darkThemeStrong: 'Dark theme:',
+        darkThemeDesc: 'Dark background #0F0F0F with soft borders.',
+        responsiveStrong: 'Responsive:',
+        responsiveDesc: 'Mobile-friendly layout and properly aligned icons.',
+        footer: 'Crafted with care — Dicode',
+        zoomTitle: 'Image zoom — pixel picker',
+        copy: 'Copy',
+        download: 'Download',
+        chooseCopyFormat: 'Choose color copy format',
+        helpTitle: 'Help',
+        whereClickStrong: 'Where to click?',
+        whereClickDesc: 'Click any tile to open its code. Gradients have a code popup.',
+        gradient: 'Gradient',
+        toastCopied: (v)=>'Copied: ' + v,
+        toastPicked: (hex)=>'Pixel picked: ' + hex,
+        toastContrast:(t)=>'Contrast adjusted ('+t+')'
+      },
+      zh: {
+        title: '颜色选择器 — Dicode',
+        subtitle: '专业色彩工具 — 快速复制、调色板、图像取色',
+        lang: '语言',
+        help: '帮助',
+        hexLabel: '颜色代码（HEX）或取色器',
+        invalidHex: '无效代码。例如：#4F46E5',
+        random: '随机',
+        autoContrast: '自动对比度（WCAG）',
+        aa: 'AA（至少 4.5:1）',
+        aaa: 'AAA（至少 7:1）',
+        adjust: '调整',
+        contrastTip: '选择 AA 或 AAA 并按“调整”以确保可读性。',
+        pickFromImage: '从图片取色',
+        chooseFile: '选择图片',
+        pickHint: '上传图片，点击取色。为更高精度使用放大。',
+        zoom: '放大',
+        remove: '删除',
+        previewText: '文本预览',
+        contrastLabel: '对比度：',
+        textColor: '文本颜色',
+        complement: '互补色',
+        analogous: '相似色',
+        shadesTints: '阴影与浅色',
+        clickToCopyFormat: '点击复制（选择格式）',
+        harmonicGradient: '和谐调色与渐变',
+        clickForCodes: '点击查看代码（React / Kotlin/Java / CSS / Tailwind）',
+        quickHelp: '快速帮助与提示',
+        autoContrastStrong: '自动对比度：',
+        autoContrastDesc: '选择 AA 或 AAA 并按“调整”以确保可读性。',
+        copyColorStrong: '复制颜色：',
+        copyColorDesc: '点击色块或阴影；在弹窗选择 HEX/RGB/HSL。',
+        pickFromImageStrong: '从图片取色：',
+        pickFromImageDesc: '上传图片，点击或使用放大精确选取像素。',
+        darkThemeStrong: '深色主题：',
+        darkThemeDesc: '深色背景 #0F0F0F 与柔和边框。',
+        responsiveStrong: '响应式：',
+        responsiveDesc: '移动端友好布局与对齐正确的图标。',
+        footer: '精心打造 — Dicode',
+        zoomTitle: '图片放大 — 像素取色',
+        copy: '复制',
+        download: '下载',
+        chooseCopyFormat: '选择颜色复制格式',
+        helpTitle: '帮助',
+        whereClickStrong: '点击哪里？',
+        whereClickDesc: '点击任意块查看代码。渐变有代码弹窗。',
+        gradient: '渐变',
+        toastCopied: (v)=>'已复制：' + v,
+        toastPicked: (hex)=>'已选择像素：' + hex,
+        toastContrast:(t)=>'已调整对比度（'+t+'）'
+      }
+    };
+    let currentLang = localStorage.getItem('dicode-lang') || 'fa';
+
+    function applyLang(lang){
+      currentLang = lang;
+      localStorage.setItem('dicode-lang', lang);
+      const dict = i18n[lang];
+      document.documentElement.lang = lang;
+      const rtl = (lang==='fa');
+      document.documentElement.dir = rtl ? 'rtl' : 'ltr';
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n');
+        if(typeof dict[key] === 'string') el.textContent = dict[key];
+      });
+      const chooseBtn = document.getElementById('chooseFileBtn');
+      if(chooseBtn) chooseBtn.querySelector('span').textContent = dict.chooseFile;
+      const lab = document.getElementById('langLabel');
+      if(lab) lab.textContent = dict.lang;
+    }
+
+    // Utils
+    const clamp = (v,min,max)=>Math.min(Math.max(v,min),max);
+    const hexToRgb = (hex) => {
+      const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec((hex||'').trim());
+      if (!m) return null;
+      return { r: parseInt(m[1],16), g: parseInt(m[2],16), b: parseInt(m[3],16) };
+    };
+    const rgbToHex = ({r,g,b}) => '#' + [r,g,b].map(v=>v.toString(16).padStart(2,'0')).join('').toUpperCase();
+    const rgbToHsl = ({r,g,b}) => {
+      r/=255; g/=255; b/=255;
+      const max=Math.max(r,g,b), min=Math.min(r,g,b);
+      let h=0,s=0, l=(max+min)/2;
+      if(max!==min){
+        const d=max-min;
+        s = l>0.5 ? d/(2-max-min) : d/(max+min);
+        switch(max){
+          case r: h=(g-b)/d + (g<b?6:0); break;
+          case g: h=(b-r)/d+2; break;
+          case b: h=(r-g)/d+4; break;
+        }
+        h/=6;
+      }
+      return { h: Math.round(h*360), s: Math.round(s*100), l: Math.round(l*100) };
+    };
+    const hslToRgb = ({h,s,l}) => {
+      h = h%360; if(h<0) h+=360;
+      s/=100; l/=100;
+      const c = (1 - Math.abs(2*l -1)) * s;
+      const x = c * (1 - Math.abs((h/60)%2 -1));
+      const m = l - c/2;
+      let r=0,g=0,b=0;
+      if(0<=h && h<60){ r=c; g=x; b=0; }
+      else if(60<=h && h<120){ r=x; g=c; b=0; }
+      else if(120<=h && h<180){ r=0; g=c; b=x; }
+      else if(180<=h && h<240){ r=0; g=x; b=c; }
+      else if(240<=h && h<300){ r=x; g=0; b=c; }
+      else { r=c; g=0; b=x; }
+      return { r: Math.round((r+m)*255), g: Math.round((g+m)*255), b: Math.round((b+m)*255) };
+    };
+
+    // Contrast WCAG
+    const relLum = ({r,g,b}) => {
+      const srgb = [r,g,b].map(v=>v/255);
+      const f = v => v<=0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055,2.4);
+      const [R,G,B] = srgb.map(f);
+      return 0.2126*R + 0.7152*G + 0.0722*B;
+    };
+    const contrastRatio = (a,b) => {
+      const L1=relLum(a), L2=relLum(b);
+      const lighter=Math.max(L1,L2), darker=Math.min(L1,L2);
+      return ((lighter+0.05)/(darker+0.05)).toFixed(2);
+    };
+
+    const pickTextColor = (bgRgb, target='AA')=>{
+      const white={r:255,g:255,b:255}, black={r:0,g:0,b:0};
+      const need = target==='AAA'?7.0:4.5;
+      const cW = parseFloat(contrastRatio(bgRgb,white));
+      const cB = parseFloat(contrastRatio(bgRgb,black));
+      if(cW>=need && cW>=cB) return white;
+      if(cB>=need && cB>=cW) return black;
+      const bgHsl = rgbToHsl(bgRgb);
+      const preferWhite = relLum(bgRgb) < 0.4;
+      const text = preferWhite ? white : black;
+      for(let step=0; step<=100; step+=2){
+        const candidateL = preferWhite ? clamp(step,0,60) : clamp(step,40,100);
+        const rgb = hslToRgb({ h:bgHsl.h, s:bgHsl.s, l:candidateL });
+        const ratio = parseFloat(contrastRatio(rgb, text));
+        if(ratio>=need) return { text, adjustedBg: rgb };
+      }
+      return cW>=cB ? white : black;
+    };
+
+    const complementary = (hsl)=>({ h:(hsl.h+180)%360, s:hsl.s, l:hsl.l });
+    const triadic = (hsl)=>[{ h:(hsl.h+120)%360, s:hsl.s, l:hsl.l }, { h:(hsl.h+240)%360, s:hsl.s, l:hsl.l }];
+    const tetradic = (hsl)=>[{ h:(hsl.h+90)%360, s:hsl.s, l:hsl.l }, { h:(hsl.h+180)%360, s:hsl.s, l:hsl.l }, { h:(hsl.h+270)%360, s:hsl.s, l:hsl.l }];
+    const makeShades = (hsl,count=12)=>{ const arr=[]; for(let i=0;i<count;i++){ const t=i/(count-1); const L=Math.round(clamp(8 + t*84,8,92)); arr.push(hslToRgb({h:hsl.h,s:hsl.s,l:L})); } return arr; };
+
+    // Toast
+    const toastEl = document.getElementById('toast');
+    let toastTimer;
+    const toast = (msg)=>{
+      toastEl.textContent = msg; toastEl.classList.remove('hidden'); toastEl.style.opacity='1';
+      clearTimeout(toastTimer); toastTimer=setTimeout(()=>{ toastEl.style.opacity='0'; setTimeout(()=>toastEl.classList.add('hidden'),300); },1800);
+    };
+    const copyText = async (text)=>{
+      try{ await navigator.clipboard.writeText(text); toast(i18n[currentLang].toastCopied((text.length>60?text.slice(0,60)+'…':text))); }
+      catch{ alert(currentLang==='fa'?'کپی ناموفق':'Copy failed'); }
+    };
+    const downloadText = (filename, text) => {
+      const blob = new Blob([text], {type:'text/plain;charset=utf-8'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 0);
+    };
+
+    // Elements
+    const hexInput = document.getElementById('hexInput');
+    const colorInput = document.getElementById('colorInput');
+    const imageInput = document.getElementById('imageInput');
+    const chooseFileBtn = document.getElementById('chooseFileBtn');
+    const imgPreview = document.getElementById('imgPreview');
+    const pickHint = document.getElementById('pickHint');
+    const openZoom = document.getElementById('openZoom');
+    const clearImage = document.getElementById('clearImage');
+    const handToolBtn = document.getElementById('handTool');
+
+    const errorMsg = document.getElementById('errorMsg');
+    const previewBlock = document.getElementById('previewBlock');
+    const previewText = document.getElementById('previewText');
+    const hexOut = document.getElementById('hexOut');
+    const rgbOut = document.getElementById('rgbOut');
+    const hslOut = document.getElementById('hslOut');
+    const contrastOut = document.getElementById('contrastOut');
+
+    const textSwatch = document.getElementById('textSwatch');
+    const compSwatch = document.getElementById('compSwatch');
+    const analogSwatch = document.getElementById('analogSwatch');
+
+    const shadesContainer = document.getElementById('shadesContainer');
+    const paletteContainer = document.getElementById('paletteContainer');
+
+    const copyHex = document.getElementById('copyHex');
+    const copyRgb = document.getElementById('copyRgb');
+    const copyHsl = document.getElementById('copyHsl');
+    const randomBtn = document.getElementById('randomBtn');
+    const autoContrastBtn = document.getElementById('autoContrastBtn');
+    const aaCheck = document.getElementById('aaCheck');
+    const aaaCheck = document.getElementById('aaaCheck');
+
+    // Language menu (open on icon/text/button)
+    const langWrap = document.getElementById('langWrap');
+    const langMenu = document.getElementById('langMenu');
+    langWrap.addEventListener('click', (e)=>{ langMenu.classList.toggle('hidden'); e.stopPropagation(); });
+    langMenu.addEventListener('click', (e)=>{
+      const btn = e.target.closest('button[data-lang]');
+      if(!btn) return;
+      langMenu.classList.add('hidden');
+      applyLang(btn.dataset.lang);
+      updateUI();
+    });
+    document.addEventListener('click', (e)=>{
+      if(!langMenu.contains(e.target) && !langWrap.contains(e.target)) langMenu.classList.add('hidden');
+    });
+    applyLang(currentLang);
+
+    // Copy format modal refs
+    const formatModal = document.getElementById('formatModal');
+    const formatPanel = document.getElementById('formatPanel');
+    const formatClose = document.getElementById('formatClose');
+    const formatPreview = document.getElementById('formatPreview');
+
+    // Code modal refs
+    const codeModal = document.getElementById('codeModal');
+    const codePanel = document.getElementById('codePanel');
+    const codeClose = document.getElementById('codeClose');
+    const codeTitle = document.getElementById('codeTitle');
+    const codeReact = document.getElementById('code-react');
+    const codeKotlin = document.getElementById('code-kotlin');
+    const codeCss = document.getElementById('code-css');
+    const codeTailwind = document.getElementById('code-tailwind');
+
+    // State
+    let currentHex = '#4F46E5';
+    let currentRgb = hexToRgb(currentHex);
+    let currentHsl = rgbToHsl(currentRgb);
+    let currentTextRgb = { r:255,g:255,b:255 };
+
+    // Copy format modal state
+    let pendingCopyColor = null; // rgb object or hex string
+    function openFormatModal(colorObjOrHex) {
+      pendingCopyColor = colorObjOrHex;
+      formatPreview.textContent = '';
+      formatModal.classList.add('open');
+      formatPanel.style.opacity='1';
+      formatPanel.style.transform='translateY(0) scale(1)';
+      if(window.lucide) lucide.createIcons();
+    }
+    function closeFormatModal(){
+      formatPanel.style.opacity='0';
+      formatPanel.style.transform='translateY(8px) scale(.98)';
+      setTimeout(()=>{ formatModal.classList.remove('open'); }, 180);
+    }
+    formatClose.addEventListener('click', closeFormatModal);
+    document.getElementById('formatBackdrop').addEventListener('click', closeFormatModal);
+    formatPanel.querySelectorAll('button[data-format]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        if(!pendingCopyColor) return;
+        let hex, rgbStr, hslStr;
+        if(typeof pendingCopyColor === 'string'){
+          hex = pendingCopyColor;
+          const rgb = hexToRgb(hex);
+          rgbStr = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+          const hsl = rgbToHsl(rgb);
+          hslStr = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
+        } else {
+          const rgb = pendingCopyColor;
+          hex = rgbToHex(rgb);
+          rgbStr = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+          const hsl = rgbToHsl(rgb);
+          hslStr = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
+        }
+        const fmt = btn.getAttribute('data-format');
+        const val = fmt==='hex' ? hex : (fmt==='rgb' ? rgbStr : hslStr);
+        formatPreview.textContent = val;
+        copyText(val);
+        closeFormatModal();
+      });
+    });
+
+    // Render helpers
+    function createShadeButton(hex){
+      const btn = document.createElement('button');
+      btn.className='group relative rounded-md h-11 border dark:border-[rgba(255,255,255,.06)] transition hover:scale-[1.02] active:scale-[.98]';
+      btn.style.background = hex; btn.title = hex;
+      const span = document.createElement('span'); span.className='absolute inset-x-0 bottom-0 text-[12px] ltr font-mono text-center pb-1 text-white/90 mix-blend-difference opacity-85 group-hover:opacity-100 transition'; span.textContent = hex;
+      btn.appendChild(span);
+      btn.addEventListener('click', ()=>openFormatModal(hex));
+      return btn;
+    }
+
+    const renderShades = (shades)=>{
+      shadesContainer.innerHTML='';
+      shades.forEach(rgb=>{ shadesContainer.appendChild(createShadeButton(rgbToHex(rgb))); });
+    };
+
+    function hexWithoutHash(h){ return h.replace('#','').toUpperCase(); }
+
+    function openCodeModal(item) {
+      const dict = i18n[currentLang];
+      const label = item.label || (item.type==='gradient'?dict.gradient:dict.textColor);
+      codeTitle.textContent = (currentLang==='fa'?'کد — ':'Code — ') + label;
+
+      if(item.type==='gradient'){
+        const grad = item.css;
+        // React
+        codeReact.textContent =
+`export default function Box(){
+  const style = { background: "${grad}" };
+  return <div style={style} className="w-full h-32 rounded-lg" />;
+}`;
+        // Kotlin/Java (Android)
+        const compHex = rgbToHex(hslToRgb(complementary(currentHsl)));
+        codeKotlin.textContent =
+`// Kotlin Android: set gradient as background via GradientDrawable
+val drawable = android.graphics.drawable.GradientDrawable(
+    android.graphics.drawable.GradientDrawable.Orientation.LEFT_RIGHT,
+    intArrayOf(0xFF${hexWithoutHash(currentHex)}, 0xFF${hexWithoutHash(compHex)})
+)
+view.background = drawable
+
+// Java (Android)
+/*
+GradientDrawable gd = new GradientDrawable(
+    GradientDrawable.Orientation.LEFT_RIGHT,
+    new int[]{0xFF${hexWithoutHash(currentHex)}, 0xFF${hexWithoutHash(compHex)}}
+);
+view.setBackground(gd);
+*/`;
+        // CSS
+        codeCss.textContent =
+`.box{
+  background: ${grad};
+  border-radius: 12px;
+  height: 8rem;
+}`;
+        // Tailwind
+        codeTailwind.textContent =
+`<div class="rounded-xl h-32 [background:${grad}]"></div>`;
+      } else {
+        const hex = item.hex;
+        // React
+        codeReact.textContent =
+`export default function Box(){
+  const style = { background: "${hex}" };
+  return <div style={style} className="w-full h-32 rounded-lg" />;
+}`;
+        // Kotlin/Java
+        codeKotlin.textContent =
+`// Kotlin Android: set solid color background
+view.setBackgroundColor(android.graphics.Color.parseColor("${hex}"));
+
+// Java (Android)
+view.setBackgroundColor(android.graphics.Color.parseColor("${hex}"));`;
+        // CSS
+        codeCss.textContent =
+`.box{
+  background: ${hex};
+  border-radius: 12px;
+  height: 8rem;
+}`;
+        // Tailwind
+        codeTailwind.textContent =
+`<div class="rounded-xl h-32" style="background:${hex}"></div>`;
+      }
+
+      Prism.highlightElement(codeReact);
+      Prism.highlightElement(codeKotlin);
+      Prism.highlightElement(codeCss);
+      Prism.highlightElement(codeTailwind);
+
+      codeModal.classList.add('open');
+      codePanel.classList.remove('animate-modalOut');
+      codePanel.classList.add('animate-modalIn');
+      if (window.lucide) lucide.createIcons();
+    }
+
+    const renderPalette = (palette)=>{
+      const dict = i18n[currentLang];
+      paletteContainer.innerHTML='';
+      palette.forEach(item=>{
+        const div = document.createElement('div'); div.className='rounded-md overflow-hidden border dark:border-[rgba(255,255,255,.06)] linear-card';
+        const colorDiv = document.createElement('div'); colorDiv.className='h-12 grad-tile'; colorDiv.style.background = item.type==='gradient'?item.css:item.hex;
+        colorDiv.title = item.label || (item.type==='gradient'?dict.gradient:dict.textColor);
+        colorDiv.addEventListener('click', ()=>{
+          openCodeModal(item);
+          colorDiv.animate([{transform:'scale(1)'},{transform:'scale(1.02)'},{transform:'scale(1)'}],{duration:220, easing:'ease'});
+        });
+        const labelDiv = document.createElement('div'); labelDiv.className='p-1.5 text-[12px] ltr font-mono text-center ui-sm';
+        labelDiv.textContent = item.type==='gradient'
+          ? `${item.label} · ${dict.gradient}`
+          : `${item.label} · ${item.hex}`;
+        div.appendChild(colorDiv); div.appendChild(labelDiv); paletteContainer.appendChild(div);
+      });
+    };
+
+    // Swatch click -> format modal
+    textSwatch.addEventListener('click', ()=> openFormatModal(currentTextRgb));
+    compSwatch.addEventListener('click', ()=>{
+      const comp = complementary(currentHsl);
+      openFormatModal(hslToRgb(comp));
+    });
+    analogSwatch.addEventListener('click', ()=>{
+      openFormatModal(currentRgb);
+    });
+
+    // Update UI
+    const updateUI = ()=>{
+      if(!currentRgb) return;
+      previewBlock.style.background = currentHex; previewText.style.color = rgbToHex(currentTextRgb);
+      hexOut.textContent = currentHex; rgbOut.textContent = `rgb(${currentRgb.r}, ${currentRgb.g}, ${currentRgb.b})`;
+      hslOut.textContent = `hsl(${currentHsl.h}, ${currentHsl.s}%, ${currentHsl.l}%)`;
+      contrastOut.textContent = contrastRatio(currentRgb,currentTextRgb);
+
+      textSwatch.style.background = rgbToHex(currentTextRgb);
+      const comp = complementary(currentHsl);
+      compSwatch.style.background = rgbToHex(hslToRgb(comp));
+      const analogLeft={h:(currentHsl.h+30)%360,s:currentHsl.s,l:currentHsl.l}, analogRight={h:(currentHsl.h+330)%360,s:currentHsl.s,l:currentHsl.l};
+      analogSwatch.style.background = `linear-gradient(90deg, ${rgbToHex(hslToRgb(analogLeft))}, ${currentHex}, ${rgbToHex(hslToRgb(analogRight))})`;
+
+      // 12 shades
+      renderShades(makeShades(currentHsl,12));
+
+      // palette items
+      const palette=[];
+      palette.push({label:'Base', hex: currentHex, type:'color'});
+      palette.push({label:'Complement', hex: rgbToHex(hslToRgb(comp)), type:'color'});
+      triadic(currentHsl).forEach((t,i)=>palette.push({label:`Tri${i+1}`, hex: rgbToHex(hslToRgb(t)), type:'color'}));
+      tetradic(currentHsl).forEach((t,i)=>palette.push({label:`Tet${i+1}`, hex: rgbToHex(hslToRgb(t)), type:'color'}));
+      const grad1 = `linear-gradient(90deg, ${currentHex}, ${rgbToHex(hslToRgb(comp))})`;
+      const tri = triadic(currentHsl);
+      const grad2 = `linear-gradient(90deg, ${currentHex}, ${rgbToHex(hslToRgb(tri[0]))}, ${rgbToHex(hslToRgb(tri[1]))})`;
+      palette.push({label:'Base → Complement', css: grad1, type:'gradient'});
+      palette.push({label:'Triadic Blend', css: grad2, type:'gradient'});
+      renderPalette(palette);
+
+      previewText.classList.remove('animate-wave'); void previewText.offsetWidth; previewText.classList.add('animate-wave');
+
+      if(window.lucide) lucide.createIcons();
+    };
+
+    // Validate + set color
+    const setColorFromHex = (hex)=>{
+      if(!hex) return false;
+      const normalized = hex.startsWith('#') ? hex : '#' + hex;
+      const rgb = hexToRgb(normalized);
+      if(!rgb){ errorMsg.classList.remove('hidden'); return false; }
+      errorMsg.classList.add('hidden');
+      currentHex = rgbToHex(rgb); currentRgb = rgb; currentHsl = rgbToHsl(rgb); colorInput.value = currentHex;
+      const target = aaaCheck.checked ? 'AAA' : 'AA';
+      const pick = pickTextColor(currentRgb, target);
+      if(pick.adjustedBg){ currentRgb = pick.adjustedBg; currentHex = rgbToHex(currentRgb); currentHsl = rgbToHsl(currentRgb); }
+      currentTextRgb = pick.text || pick;
+      updateUI(); return true;
+    };
+
+    const randomHex = ()=> '#' + Array.from({length:3},()=>Math.floor(Math.random()*256).toString(16).padStart(2,'0')).join('').toUpperCase();
+
+    // Events
+    hexInput.addEventListener('input', e=> setColorFromHex(e.target.value));
+    colorInput.addEventListener('input', e=> setColorFromHex(e.target.value));
+
+    // Copy/Download buttons animation -> check
+    function animateActionBtn(btn) {
+      btn.classList.add('success');
+      const svg = btn.querySelector('svg');
+      if (svg) svg.setAttribute('data-lucide', 'check');
+      if (window.lucide) lucide.createIcons();
+      setTimeout(()=>{
+        btn.classList.remove('success');
+        if (svg) svg.setAttribute('data-lucide', btn.getAttribute('data-copy') ? 'copy' : 'download');
+        if (window.lucide) lucide.createIcons();
+      }, 900);
+    }
+
+    copyHex.addEventListener('click', ()=> { copyText(currentHex); animateActionBtn(copyHex); });
+    copyRgb.addEventListener('click', ()=> { copyText(`rgb(${currentRgb.r}, ${currentRgb.g}, ${currentRgb.b})`); animateActionBtn(copyRgb); });
+    copyHsl.addEventListener('click', ()=> { copyText(`hsl(${currentHsl.h}, ${currentHsl.s}%, ${currentHsl.l}%)`); animateActionBtn(copyHsl); });
+    randomBtn.addEventListener('click', ()=>{ const r=randomHex(); hexInput.value=r; setColorFromHex(r); animateActionBtn(randomBtn); });
+
+    autoContrastBtn.addEventListener('click', ()=>{
+      const target = aaaCheck.checked ? 'AAA' : 'AA';
+      const pick = pickTextColor(currentRgb, target);
+      if(pick.adjustedBg){ currentRgb = pick.adjustedBg; currentHex = rgbToHex(currentRgb); currentHsl = rgbToHsl(currentRgb); }
+      currentTextRgb = pick.text || pick; updateUI(); toast(i18n[currentLang].toastContrast(target));
+    });
+    aaCheck.addEventListener('change', ()=>{ if(!aaCheck.checked && !aaaCheck.checked){ aaCheck.checked = true; } updateUI(); });
+    aaaCheck.addEventListener('change', ()=>{ if(!aaCheck.checked && !aaaCheck.checked){ aaCheck.checked = true; } updateUI(); });
+
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const applyTheme = (dark)=>{
+      document.documentElement.classList.toggle('dark', dark);
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', dark? '#0F0F0F' : '#ffffff');
+      document.querySelectorAll('.light-icon').forEach(el=>el.style.display = dark ? 'none' : 'inline-block');
+      document.querySelectorAll('.dark-icon').forEach(el=>el.style.display = dark ? 'inline-block' : 'none');
+    };
+    const loadTheme = ()=>{
+      const saved = localStorage.getItem('dicode-theme');
+      if(saved) applyTheme(saved==='dark');
+      else applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches);
+    };
+    loadTheme();
+    themeToggle.addEventListener('click', ()=>{ const isDark = document.documentElement.classList.contains('dark'); applyTheme(!isDark); localStorage.setItem('dicode-theme', !isDark ? 'dark' : 'light'); });
+
+    // Info modal
+    const infoBtn = document.getElementById('infoBtn');
+    const infoModal = document.getElementById('infoModal');
+    const infoClose = document.getElementById('infoClose');
+    infoBtn.addEventListener('click', ()=>{ infoModal.classList.remove('hidden'); infoModal.classList.add('flex'); });
+    infoClose.addEventListener('click', ()=>{ infoModal.classList.add('hidden'); infoModal.classList.remove('flex'); });
+    infoModal.querySelector('.backdrop').addEventListener('click', ()=>{ infoModal.classList.add('hidden'); infoModal.classList.remove('flex'); });
+
+    // Image picker + zoom with hand tool
+    let imgCanvas = null, imgCtx = null, fullImage = null;
+    const pickerOverlay = document.getElementById('pickerOverlay');
+    const pickerPanel = document.getElementById('pickerPanel');
+    const pickerHeader = document.getElementById('pickerHeader');
+    const pickerCanvas = document.getElementById('pickerCanvas');
+    const pickerInfo = document.getElementById('pickerInfo');
+    const closePicker = document.getElementById('closePicker');
+    const zoomInBtn = document.getElementById('zoomInBtn');
+    const zoomOutBtn = document.getElementById('zoomOutBtn');
+    const resetZoomBtn = document.getElementById('resetZoomBtn');
+    const handToggle = document.getElementById('handToggle');
+
+    // zoom/pan state
+    let zoomScale = 1;
+    let baseCanvasW = 0, baseCanvasH = 0;
+    let panX = 0, panY = 0, isPanning=false, lastX=0, lastY=0;
+
+    // Custom choose file triggers native file input
+    chooseFileBtn.addEventListener('click', ()=> imageInput.click());
+
+    imageInput.addEventListener('change', (e)=>{
+      const f = e.target.files && e.target.files[0]; if(!f) return;
+      const url = URL.createObjectURL(f);
+      imgPreview.src = url; imgPreview.classList.remove('hidden'); pickHint.classList.add('hidden');
+      openZoom.disabled = false; clearImage.disabled = false; handToolBtn.disabled = false;
+
+      const img = new Image();
+      img.onload = ()=>{
+        const MAX = 1400;
+        const scale = Math.min(1, MAX / Math.max(img.naturalWidth, img.naturalHeight));
+        imgCanvas = document.createElement('canvas'); imgCanvas.width = Math.round(img.naturalWidth * scale); imgCanvas.height = Math.round(img.naturalHeight * scale);
+        imgCtx = imgCanvas.getContext('2d'); imgCtx.drawImage(img,0,0,imgCanvas.width,imgCanvas.height);
+        fullImage = img;
+      };
+      img.src = url;
+    });
+
+    // click on preview -> pick
+    imgPreview.addEventListener('click', (e)=>{
+      if(!imgCanvas) return;
+      const rect = imgPreview.getBoundingClientRect();
+      const x = Math.round((e.clientX - rect.left) * (imgCanvas.width / rect.width));
+      const y = Math.round((e.clientY - rect.top) * (imgCanvas.height / rect.height));
+      try{
+        const d = imgCtx.getImageData(x,y,1,1).data;
+        const picked = { r:d[0], g:d[1], b:d[2] }, hex = rgbToHex(picked);
+        hexInput.value = hex; setColorFromHex(hex); toast(i18n[currentLang].toastPicked(hex));
+      }catch{ alert(currentLang==='fa'?'نمی‌توان رنگ را خواند':'Cannot read color'); }
+    });
+
+    function drawZoomed() {
+      const ctx = pickerCanvas.getContext('2d');
+      ctx.imageSmoothingEnabled = true;
+      ctx.clearRect(0,0,pickerCanvas.width,pickerCanvas.height);
+
+      const drawW = Math.round(baseCanvasW * zoomScale);
+      const drawH = Math.round(baseCanvasH * zoomScale);
+
+      // clamp pan to image bounds
+      const maxPanX = Math.max(0, drawW - pickerCanvas.width);
+      const maxPanY = Math.max(0, drawH - pickerCanvas.height);
+      panX = clamp(panX, 0, maxPanX);
+      panY = clamp(panY, 0, maxPanY);
+
+      ctx.drawImage(
+        fullImage,
+        0, 0, fullImage.naturalWidth, fullImage.naturalHeight,
+        -panX, -panY, drawW, drawH
+      );
+    }
+
+    function openZoomModal(){
+      if(!fullImage) return;
+      pickerOverlay.classList.add('open');
+
+      const maxW = Math.floor(window.innerWidth * 0.94);
+      const maxH = Math.floor(window.innerHeight * 0.86);
+      let w = fullImage.naturalWidth, h = fullImage.naturalHeight;
+      const scale = Math.min(maxW / w, maxH / h, 1);
+      baseCanvasW = Math.round(w * scale); baseCanvasH = Math.round(h * scale);
+      pickerCanvas.width = baseCanvasW; pickerCanvas.height = baseCanvasH;
+      zoomScale = 1; panX=0; panY=0; isPanning=false;
+
+      pickerCanvas.style.cursor = 'crosshair';
+      handToggle.setAttribute('aria-pressed','false');
+      handToggle.classList.remove('hand-active');
+
+      drawZoomed();
+      pickerInfo.textContent = (currentLang==='fa'?'روی پیکسل کلیک کنید (مختصات نمایش داده می‌شود).':'Click a pixel (coordinates will appear).');
+
+      // center panel
+      requestAnimationFrame(()=>{
+        pickerPanel.style.top = Math.max(20, (window.innerHeight - pickerPanel.offsetHeight)/2) + 'px';
+        pickerPanel.style.right = Math.max(20, (window.innerWidth - pickerPanel.offsetWidth)/2) + 'px';
+        pickerPanel.style.opacity='1';
+        pickerPanel.style.transform='translateY(0) scale(1)';
+      });
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    openZoom.addEventListener('click', openZoomModal);
+
+    zoomInBtn.addEventListener('click', ()=>{ zoomScale = Math.min(6, Number((zoomScale + 0.2).toFixed(2))); drawZoomed(); });
+    zoomOutBtn.addEventListener('click', ()=>{ zoomScale = Math.max(0.4, Number((zoomScale - 0.2).toFixed(2))); drawZoomed(); });
+    resetZoomBtn.addEventListener('click', ()=>{ zoomScale = 1; panX=0; panY=0; drawZoomed(); });
+
+    // Hand tool toggle
+    handToggle.addEventListener('click', ()=>{
+      const active = handToggle.getAttribute('aria-pressed') === 'true';
+      const next = !active;
+      handToggle.setAttribute('aria-pressed', String(next));
+      if(next){
+        pickerCanvas.style.cursor = 'grab';
+        handToggle.classList.add('hand-active');
+      }else{
+        pickerCanvas.style.cursor = 'crosshair';
+        handToggle.classList.remove('hand-active');
+      }
+    });
+
+    // Pan with hand tool
+    pickerCanvas.addEventListener('mousedown', (e)=>{
+      if(handToggle.getAttribute('aria-pressed') !== 'true') return;
+      isPanning = true;
+      pickerCanvas.style.cursor = 'grabbing';
+      lastX = e.clientX; lastY = e.clientY;
+    });
+    window.addEventListener('mousemove', (e)=>{
+      if(!isPanning) return;
+      const dx = e.clientX - lastX;
+      const dy = e.clientY - lastY;
+      lastX = e.clientX; lastY = e.clientY;
+      panX -= dx; panY -= dy;
+      drawZoomed();
+    });
+    window.addEventListener('mouseup', ()=>{
+      if(isPanning){
+        isPanning = false;
+        pickerCanvas.style.cursor = 'grab';
+      }
+    });
+
+    // Touch pan
+    pickerCanvas.addEventListener('touchstart', (e)=>{
+      if(handToggle.getAttribute('aria-pressed') !== 'true') return;
+      const t = e.touches[0];
+      isPanning = true; lastX = t.clientX; lastY = t.clientY;
+    }, {passive:true});
+    pickerCanvas.addEventListener('touchmove', (e)=>{
+      if(!isPanning) return;
+      const t = e.touches[0];
+      const dx = t.clientX - lastX;
+      const dy = t.clientY - lastY;
+      lastX = t.clientX; lastY = t.clientY;
+      panX -= dx; panY -= dy;
+      drawZoomed();
+    }, {passive:false});
+    window.addEventListener('touchend', ()=>{ isPanning=false; }, {passive:true});
+
+    // pick from zoom canvas (disabled when hand tool active)
+    pickerCanvas.addEventListener('click', (e)=>{
+      if(handToggle.getAttribute('aria-pressed') === 'true') return; // hand tool active -> no pick
+      const rect = pickerCanvas.getBoundingClientRect();
+      const xCanvas = Math.floor((e.clientX - rect.left));
+      const yCanvas = Math.floor((e.clientY - rect.top));
+      const xImg = Math.floor( (xCanvas + panX) / zoomScale );
+      const yImg = Math.floor( (yCanvas + panY) / zoomScale );
+
+      const ctx = pickerCanvas.getContext('2d');
+      const d = ctx.getImageData(xCanvas, yCanvas, 1, 1).data;
+      const picked = { r:d[0], g:d[1], b:d[2] }, hex = rgbToHex(picked);
+      hexInput.value = hex; setColorFromHex(hex);
+
+      // marker
+      const marker = document.createElement('div');
+      marker.style.position='absolute';
+      const panelRect = pickerPanel.getBoundingClientRect();
+      marker.style.left=(e.clientX - panelRect.left - 8)+'px';
+      marker.style.top=(e.clientY - panelRect.top - 8)+'px';
+      marker.style.width='16px'; marker.style.height='16px';
+      marker.style.border='2px solid white'; marker.style.borderRadius='50%';
+      marker.style.boxShadow='0 6px 18px rgba(0,0,0,.6)'; marker.style.pointerEvents='none';
+      pickerPanel.appendChild(marker); setTimeout(()=>marker.remove(),800);
+
+      pickerInfo.textContent = `x: ${xImg}, y: ${yImg} — ${hex}`;
+      toast(i18n[currentLang].toastPicked(hex));
+    });
+
+    // draggable panel logic (RTL-aware)
+    (function(){
+      let isDragging = false;
+      let startX=0, startY=0, origTop=0, origRight=0;
+
+      const onMouseDown = (e)=>{
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        const panelRect = pickerPanel.getBoundingClientRect();
+        origTop = parseInt(pickerPanel.style.top || panelRect.top);
+        origRight = parseInt(pickerPanel.style.right || (window.innerWidth - panelRect.right));
+        document.body.style.userSelect = 'none';
+      };
+      const onMouseMove = (e)=>{
+        if(!isDragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        let newTop = origTop + dy;
+        let newRight = origRight - dx;
+        const panelW = pickerPanel.offsetWidth, panelH = pickerPanel.offsetHeight;
+        newTop = clamp(newTop, 10, window.innerHeight - panelH - 10);
+        newRight = clamp(newRight, 10, window.innerWidth - panelW - 10);
+        pickerPanel.style.top = newTop + 'px';
+        pickerPanel.style.right = newRight + 'px';
+      };
+      const onMouseUp = ()=>{
+        if(isDragging){
+          isDragging = false;
+          document.body.style.userSelect = '';
+        }
+      };
+      pickerHeader.addEventListener('mousedown', onMouseDown);
+      window.addEventListener('mousemove', onMouseMove);
+      window.addEventListener('mouseup', onMouseUp);
+      // Touch
+      pickerHeader.addEventListener('touchstart', (e)=>{ const t=e.touches[0]; onMouseDown({clientX:t.clientX, clientY:t.clientY}); }, {passive:true});
+      window.addEventListener('touchmove', (e)=>{ const t=e.touches[0]; onMouseMove({clientX:t.clientX, clientY:t.clientY}); }, {passive:false});
+      window.addEventListener('touchend', onMouseUp);
+    })();
+
+    const closeZoomPanel = ()=>{
+      pickerPanel.style.opacity='0';
+      pickerPanel.style.transform='translateY(8px) scale(.98)';
+      setTimeout(()=>{ pickerOverlay.classList.remove('open'); }, 180);
+    };
+    closePicker.addEventListener('click', closeZoomPanel);
+
+    clearImage.addEventListener('click', ()=>{
+      imgPreview.src=''; imgPreview.classList.add('hidden');
+      pickHint.classList.remove('hidden'); openZoom.disabled=true; clearImage.disabled=true; handToolBtn.disabled=true;
+      imageInput.value=''; imgCanvas=null; imgCtx=null; fullImage=null;
+    });
+
+    // Code modal controls
+    codeClose.addEventListener('click', ()=>{
+      codePanel.classList.remove('animate-modalIn');
+      codePanel.classList.add('animate-modalOut');
+      setTimeout(()=>{ codeModal.classList.remove('open'); }, 180);
+    });
+    document.getElementById('codeBackdrop').addEventListener('click', ()=>{ codeClose.click(); });
+
+    // Tabs
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const panes = {
+      react: document.getElementById('pane-react'),
+      kotlin: document.getElementById('pane-kotlin'),
+      css: document.getElementById('pane-css'),
+      tailwind: document.getElementById('pane-tailwind')
+    };
+    tabButtons.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        tabButtons.forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        Object.keys(panes).forEach(k=> panes[k].classList.remove('active'));
+        panes[btn.dataset.tab].classList.add('active');
+      });
+    });
+
+    // Code actions copy/download with check animation
+    document.querySelectorAll('.code-action[data-copy]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const t = btn.getAttribute('data-copy');
+        const codeEl = document.getElementById('code-'+t);
+        copyText(codeEl.textContent || '');
+        animateActionBtn(btn);
+      });
+    });
+    document.querySelectorAll('.code-action[data-download]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const t = btn.getAttribute('data-download');
+        const codeEl = document.getElementById('code-'+t);
+        const nameMap = {react:'react-snippet.jsx', kotlin:'android-snippet.kt', css:'styles.css', tailwind:'tailwind-snippet.html'};
+        downloadText(nameMap[t]||'snippet.txt', codeEl.textContent || '');
+        animateActionBtn(btn);
+      });
+    });
+
+    // Init values & UI
+    hexInput.value = currentHex; colorInput.value = currentHex; setColorFromHex(currentHex);
+
+    // ensure icons after dynamic changes
+    if(window.lucide) lucide.createIcons();
+  </script>
+</body>
+</html>

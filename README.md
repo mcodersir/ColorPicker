@@ -27,7 +27,7 @@ This is a web-based tool. No installation needed.
 To contribute or self-host:
 
 ```bash
-git clone https://github.com/yourusername/dicode-colorpicker.git
+git clone https://github.com/mcodersir/dicode-colorpicker.git
 cd dicode-colorpicker
 npm install
 npm run dev

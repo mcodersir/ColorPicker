@@ -27,8 +27,8 @@ This is a web-based tool. No installation needed.
 To contribute or self-host:
 
 ```bash
-git clone https://github.com/mcodersir/dicode-colorpicker.git
-cd dicode-colorpicker
+git clone https://github.com/mcodersir/ColorPicker.git
+cd ColorPicker
 ```
 
 ---
